@@ -4,12 +4,11 @@ class User < ActiveRecord::Base
     case request[:method]
     when "GET" then
       if params[:id] != nil
-        User.where(name: params[:id])
+        users = User.where(id: params[:id])
+        users.each{ |user| puts "#{user.first_name} #{user.last_name} - #{user.age}" }
       else
         users = User.all
-        users.each do |user|
-          puts "#{user.first_name} #{user.last_name} - #{user.age}"
-        end
+        users.each{ |user| puts "#{user.first_name} #{user.last_name} - #{user.age}" }
         puts
       end
     end
