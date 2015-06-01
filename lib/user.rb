@@ -12,14 +12,14 @@ class User < ActiveRecord::Base
         error_404
       end
     else # if not searching using id
-      # if User.exists?(first_name: params[:first_name])
+      if User.exists?(['first_name LIKE ?', "#{params[:first_name]}%"])
         users = User.where("first_name LIKE '#{params[:first_name]}%'")
         ok_200
         users.each{ |user| puts "#{user.first_name} #{user.last_name} - #{user.age}" }
         puts
-      # else
-       # error_404
-      # end
+      else
+       error_404
+      end
     end
   end # view_user_info_method
 
