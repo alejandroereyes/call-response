@@ -59,7 +59,7 @@ loop do
     # return an appropriate reponse
 
     # YOUR CODE GOES BELOW HERE
-    if PARAMS[:resource] == 'users'
+    if PARAMS[:resource] == 'users' && REQUEST[:method] == 'GET'
       puts
       User.view_user_info(REQUEST, PARAMS)
     end
