@@ -1,4 +1,5 @@
 require_relative '../db/setup'
+require_relative '../lib/user'
 # Remember to put the requires here for all the classes you write and want to use
 
 def parse_params(uri_fragments, query_param_string)
@@ -58,6 +59,10 @@ loop do
     # return an appropriate reponse
 
     # YOUR CODE GOES BELOW HERE
+    if PARAMS[:resource] == 'users'
+      puts PARAMS[:resource]
+      User.view_user_info(REQUEST, PARAMS)
+    end
 
     # YOUR CODE GOES ABOVE HERE  ^
   end
