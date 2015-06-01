@@ -60,7 +60,8 @@ loop do
 
     # YOUR CODE GOES BELOW HERE
     if PARAMS[:resource] == 'users'
-      puts PARAMS[:resource]
+      puts
+      puts "200 OK"
       User.view_user_info(REQUEST, PARAMS)
     end
 

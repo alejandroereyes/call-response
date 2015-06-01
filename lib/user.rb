@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
 
   def self.view_user_info(request, params)
-    puts
-    puts "200 OK"
     case request[:method]
     when "GET" then
       if params[:id] != nil
@@ -12,6 +10,7 @@ class User < ActiveRecord::Base
         users.each do |user|
           puts "#{user.first_name} #{user.last_name} - #{user.age}"
         end
+        puts
       end
     end
   end
