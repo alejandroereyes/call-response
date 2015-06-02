@@ -13,26 +13,20 @@ class User < ActiveRecord::Base
       end
     else # if not searching using id
 
-      # set query parameters
+      # set query parameter variables
       first_name_value = params.key?(:first_name) ? "#{params[:first_name]}%" : "%%"
       last_name_value = params.key?(:last_name) ? "#{params[:last_name]}%" : "%%"
       age_value = params.key?(:age) ? params[:age] : "%%"
-      #where.('age LIKE age') - example
       limit_value = params.key?(:limit) ? params[:limit] : -1
-      #limit(-1) - example
       offset_value = params.key?(:offset) ? params[:offset] : 0
-      #User.all.offset(0) - example
 
       if User.exists?(['first_name LIKE ?', first_name_value])
-        puts "good to go"
-        # users = User.where("first_name LIKE '#{first_name_value}'")
         users = User.where(["first_name LIKE ? AND last_name LIKE ? AND age LIKE ?",
                             first_name_value, last_name_value, age_value]).
                             offset(offset_value).
                             limit(limit_value)
         ok_200
         display_info(users)
-        puts "#{first_name_value}, #{last_name_value}, #{age_value}, #{limit_value}, #{offset_value}"
       else
        error_404
       end
