@@ -1,30 +1,42 @@
-This folder structure should be suitable for starting a project that uses a database:
+# Call Response
 
-* Fork this repo
-* Clone this repo
-* `rake generate:migration <NAME>` to create a migration (Don't include the `<` `>` in your name, it should also start with a capital)
-* `rake db:migrate` to run the migration and update the database
-* Create models in lib that subclass `ActiveRecord::Base`
-* ... ?
-* Profit
+This program simiulates a call response from a client to a server. User will enter in a valid http request and will receive a response based on their entry.
+
+## Feautres
+
+  * User can access all users info
+  * User can access user info via id, first_name, last_name, or age parameter
+  * User can set limit on amount of users sent back
+  * User can offset starting point of users sent back
 
 
-## Rundown
+## How to Run file
+  * Fork this repo
+  * Clone this repo
+  * run `ruby bin/run.rb` from the call-response folder to run program
+
+
+
+## Folders & Files
 
 ```
-.
-├── Gemfile             # Details which gems are required by the project
-├── README.md           # This file
-├── Rakefile            # Defines `rake generate:migration` and `db:migrate`
-├── bin
-│   ├── run.rb          # `ruby bin/run.rb` will start the program.
-├── config
-│   └── database.yml    # Defines the database config (e.g. name of file)
-├── console.rb          # `ruby console.rb` starts `pry` with models loaded
-├── db
-│   ├── dev.sqlite3     # Default location of the database file
-│   ├── migrate         # Folder containing generated migrations
-│   └── setup.rb        # `require`ing this file sets up the db connection
-└── lib                 # Your ruby code (models, etc.) should go here
-    └── all.rb          # Require this file to auto-require _all_ `.rb` files in `lib`
+└── call-response
+    ├── Gemfile                 # Details which gems are required by the project
+    ├── Gemfile.lock            # Defines `rake generate:migration` and `
+    ├── README.md               # This file
+    ├── Rakefile
+    ├── bin
+    │   └── run.rb              # `ruby bin/run.rb` will start the program.
+    ├── config
+    │   └── database.yml        # Defines the database config (e.g. name of file)
+    ├── console.rb              # `ruby console.rb` starts `pry` with models loaded
+    ├── db
+    │   ├── dev.sqlite3         # Default location of the database file
+    │   ├── migrate             # Folder containing generated migrations
+    │   │   └── 20150601140622_create_user.rb  # Migration class file, creates table
+    │   └── setup.rb            # `require`ing this file sets up the db connection
+    └── lib                     # Ruby code (models, etc.)
+        ├── all.rb              # Require this file to auto-require _all_ `.rb` files in `lib`
+        └── user.rb             # Require this file to auto-require _all_ `.rb` files in `lib`
+
 ```
