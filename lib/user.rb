@@ -6,27 +6,33 @@ class User < ActiveRecord::Base
       if User.exists?(id: params[:id])
         users = User.where(id: params[:id])
         ok_200
-        users.each{ |user| puts "#{user.first_name} #{user.last_name} - #{user.age}" }
+        display_info(users)
         puts
       else
         error_404
       end
     else # if not searching using id
+
       # set query parameters
-      first_name = params.key?(:first_name) ? "#{params[:first_name]}%" : "%%"
-      last_name = params.key?(:last_name) ? "#{params[:last_name]}%" : "%%"
-      age = params.key?(:age) ? params[:age] : "%%"
-      #where.('age LIKE limit') - example
-      limit = params.key?(:limit) ? params[:limit] : -1
+      first_name_value = params.key?(:first_name) ? "#{params[:first_name]}%" : "%%"
+      last_name_value = params.key?(:last_name) ? "#{params[:last_name]}%" : "%%"
+      age_value = params.key?(:age) ? params[:age] : "%%"
+      #where.('age LIKE age') - example
+      limit_value = params.key?(:limit) ? params[:limit] : -1
       #limit(-1) - example
-      offset = params.key?(:offset) ? params[:offset] : 0
+      offset_value = params.key?(:offset) ? params[:offset] : 0
       #User.all.offset(0) - example
 
-      if User.exists?(['first_name LIKE ?', first_name])
-        users = User.where("first_name LIKE '#{first_name}'")
+      if User.exists?(['first_name LIKE ?', first_name_value])
+        puts "good to go"
+        # users = User.where("first_name LIKE '#{first_name_value}'")
+        users = User.where(["first_name LIKE ? AND last_name LIKE ? AND age LIKE ?",
+                            first_name_value, last_name_value, age_value]).
+                            offset(offset_value).
+                            limit(limit_value)
         ok_200
-        users.each{ |user| puts "#{user.first_name} #{user.last_name} - #{user.age}" }
-        puts
+        display_info(users)
+        puts "#{first_name_value}, #{last_name_value}, #{age_value}, #{limit_value}, #{offset_value}"
       else
        error_404
       end
@@ -34,6 +40,13 @@ class User < ActiveRecord::Base
   end # view_user_info_method
 
   private
+
+  def self.display_info(users)
+    puts "User              Age"
+    puts "---------------------"
+    users.each{ |user| puts "#{user.first_name} #{user.last_name} - #{user.age}" }
+  end
+
   def self.ok_200
     puts "200 OK"
   end
