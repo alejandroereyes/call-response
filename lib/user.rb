@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
         error_404
       end
     else # if not searching using id
-
       # set query parameter variables
       first_name_value = params.key?(:first_name) ? "#{params[:first_name]}%" : "%%"
       last_name_value = params.key?(:last_name) ? "#{params[:last_name]}%" : "%%"
@@ -32,6 +31,17 @@ class User < ActiveRecord::Base
       end
     end
   end # view_user_info_method
+
+  def self.delete_user(request, params)
+    if User.exists?(id: params[:id])
+      # id_array = []
+      # params[:id].each{ |id| id_array << id}
+      ok_200
+      User.delete(params[:id])
+    else
+      error_404
+    end
+  end
 
   private
 

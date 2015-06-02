@@ -8,7 +8,7 @@ This program simiulates a call response from a client to a server. User will ent
   * User can access user info via id, first_name, last_name, or age parameter
   * User can set limit on amount of users sent back
   * User can offset starting point of users sent back
-
+  * A user can be deleted via id
 
 ## How to Run file
   * Fork this repo

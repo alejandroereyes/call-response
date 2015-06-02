@@ -62,6 +62,9 @@ loop do
     if PARAMS[:resource] == 'users' && REQUEST[:method] == 'GET'
       puts
       User.view_user_info(REQUEST, PARAMS)
+    elsif PARAMS[:resource] == 'users' && REQUEST[:method] == 'DELETE'
+      puts
+      User.delete_user(REQUEST, PARAMS)
     else
       puts
       puts "404"
