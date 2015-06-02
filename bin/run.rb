@@ -62,6 +62,10 @@ loop do
     if PARAMS[:resource] == 'users' && REQUEST[:method] == 'GET'
       puts
       User.view_user_info(REQUEST, PARAMS)
+    else
+      puts
+      puts "404"
+      puts "Not Found"
     end
 
     # YOUR CODE GOES ABOVE HERE  ^
